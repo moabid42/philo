@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:22:42 by moabid            #+#    #+#             */
-/*   Updated: 2022/08/05 19:50:22 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/05 21:58:11 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	threading_launch(struct s_data *data, struct s_philo *philo)
 {
 	int	i;
 
+	pthread_mutex_lock(&(data->wait));
 	i = 0;
 	while (i < data->nb_philo)
 	{
@@ -38,7 +39,6 @@ bool	threading_launch(struct s_data *data, struct s_philo *philo)
 		usleep(2);
 	}
 	// usleep(20);
-	pthread_mutex_lock(&(data->wait));
 	data->created = true;
 	data->start_time = ft_gettime();
 	pthread_mutex_unlock(&(data->wait));
@@ -54,8 +54,10 @@ void	*life_cycle(void *philo_void)
 
 	philo = (struct s_philo *) philo_void;
 	data = philo->data;
-	while (data->created == false)
-		usleep(1);
+	pthread_mutex_lock(&(data->wait));
+	pthread_mutex_unlock(&(data->wait));
+	// while (data->created == false)
+	// 	usleep(1);
 	// pthread_mutex_lock(&(data->eat));
 	philo->last_eating_time = ft_gettime();
 	// pthread_mutex_unlock(&(data->eat));

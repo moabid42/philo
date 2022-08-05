@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:29:08 by moabid            #+#    #+#             */
-/*   Updated: 2022/08/05 17:28:22 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/05 21:59:04 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_usleep(long int time_in_ms)
 	start_time = 0;
 	start_time = ft_gettime();
 	while ((ft_gettime() - start_time) < time_in_ms)
-		usleep(10);
+		usleep(100);
 }
 
 static long long	time_diff(long long past, long long pres)
