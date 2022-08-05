@@ -82,14 +82,14 @@ void	francisco_is_watching(struct s_data *data, struct s_philo *philo, int i)
 	while (1)
 	{
 		i = 0;
-		ft_usleep(data->time_to_die - 1);
+		ft_usleep(data->time_to_die);
 		while (i < data->nb_philo && !data->dead)
 		{
 			// pthread_mutex_lock(&(data->eat));
 			data->death_time = ft_gettime() - philo[i].last_eating_time;
 			// pthread_mutex_unlock(&(data->eat));
 			// printf("The death time is : %lld  %d\n", data->death_time, i);
-			if (data->death_time >= data->time_to_die - 1)
+			if (data->death_time > data->time_to_die - 1)
 			{
 				print_state(data, philo[i].philo_id, DEATH);
 				pthread_mutex_lock(&(data->death));
