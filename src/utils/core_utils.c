@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:29:08 by moabid            #+#    #+#             */
-/*   Updated: 2022/08/05 21:59:04 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/05 22:47:35 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	print_state(struct s_data *data, int id, char *action)
 {
 	pthread_mutex_lock(&(data->log));
 	if (!data->dead)
-		// printf("%llu [%d] %s\n", ft_gettime() - data->start_time, id, action);
 		printer(action, ft_gettime() - data->start_time, id);
 	pthread_mutex_unlock(&(data->log));
 }
@@ -63,28 +62,6 @@ long long	ft_gettime(void)
 	return (time);
 }
 
-void	ft_check_time(int time_to, struct s_data *data)
-{
-	long long	time;
-	long long	delta;
-
-	time = ft_gettime();
-	while (1)
-	{
-		pthread_mutex_lock(&(data->eat));
-		if (data->dead)
-		{
-			pthread_mutex_unlock(&(data->eat));
-			break ;
-		}
-		pthread_mutex_unlock(&(data->eat));
-		delta = ft_gettime() - time;
-		if (delta >= time_to)
-			break ;
-		usleep(50);
-	}
-}
-
 void	ft_usleep(long int time_in_ms)
 {
 	long int	start_time;
@@ -93,22 +70,4 @@ void	ft_usleep(long int time_in_ms)
 	start_time = ft_gettime();
 	while ((ft_gettime() - start_time) < time_in_ms)
 		usleep(100);
-}
-
-static long long	time_diff(long long past, long long pres)
-{
-	return (pres - past);
-}
-
-void		smart_sleep(long long time, struct s_data *data)
-{
-	long long i;
-
-	i = ft_gettime();
-	while (data->dead)
-	{
-		if (time_diff(i, ft_gettime()) >= time)
-			break ;
-		usleep(50);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:22:42 by moabid            #+#    #+#             */
-/*   Updated: 2022/08/05 21:58:11 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/05 22:42:04 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ bool	threading_launch(struct s_data *data, struct s_philo *philo)
 		i += 1;
 		usleep(2);
 	}
-	// usleep(20);
 	data->created = true;
 	data->start_time = ft_gettime();
 	pthread_mutex_unlock(&(data->wait));
-	// printf("The start time is : %lld \n", data->start_time);
 	fflush(stdout);
 	return (true);
 }
@@ -56,12 +54,7 @@ void	*life_cycle(void *philo_void)
 	data = philo->data;
 	pthread_mutex_lock(&(data->wait));
 	pthread_mutex_unlock(&(data->wait));
-	// while (data->created == false)
-	// 	usleep(1);
-	// pthread_mutex_lock(&(data->eat));
 	philo->last_eating_time = ft_gettime();
-	// pthread_mutex_unlock(&(data->eat));
-	// printf("LET = %lld with %lld the ID : %d\n", philo->last_eating_time, data->start_time, philo->philo_id);
 	if ((philo->philo_id + 1) % 2 == 0)
 		ft_usleep(data->time_to_eat);
 	while (1)
@@ -85,16 +78,12 @@ void	francisco_is_watching(struct s_data *data, struct s_philo *philo, int i)
 		ft_usleep(data->time_to_die);
 		while (i < data->nb_philo && !data->dead)
 		{
-			// pthread_mutex_lock(&(data->eat));
 			data->death_time = ft_gettime() - philo[i].last_eating_time;
-			// pthread_mutex_unlock(&(data->eat));
-			// printf("The death time is : %lld  %d\n", data->death_time, i);
 			if (data->death_time > data->time_to_die - 1)
 			{
 				print_state(data, philo[i].philo_id, DEATH);
 				pthread_mutex_lock(&(data->death));
 				data->dead = true;
-				// printf("We are locking it\n");
 				pthread_mutex_unlock(&(data->death));
 			}
 			i++;

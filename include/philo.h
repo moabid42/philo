@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 09:27:57 by athirion          #+#    #+#             */
-/*   Updated: 2022/08/05 17:15:51 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/05 22:47:25 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MALLOC_ERR			"\033[31mError:\033[0m Malloc error\n"
 # define ARGUMENT_ERROR		"\033[31mError:\033[0m Please feed me valid numbers\n"
 # define NEGATIVE_ERROR		"\033[31mError:\033[0m Please feed me \
-								positive numbers only\n"
+positive numbers only\n"
 # define OVERFLOW_ERROR		"\033[31mError:\033[0m Please don't overflow me\n"
 # define FOOD_ERROR 		"\033[31mError:\033[0m Please feed me at least once\n"
 # define SYNTAX_ERROR		"\033[31mError:\033[0m ./philo num_p time_d time_e time_s \
@@ -65,7 +65,7 @@ struct s_data
 	pthread_mutex_t	eat;
 	pthread_mutex_t	death;
 	pthread_mutex_t	log;
-	pthread_mutex_t wait;
+	pthread_mutex_t	wait;
 
 	struct s_philo	*philo;
 };
