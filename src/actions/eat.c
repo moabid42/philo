@@ -6,7 +6,7 @@
 /*   By: moabid <moabid@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:25:05 by moabid            #+#    #+#             */
-/*   Updated: 2022/08/03 23:20:18 by moabid           ###   ########.fr       */
+/*   Updated: 2022/08/08 19:57:33 by moabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	philo_eat_cycle(struct s_data *data, struct s_philo *philo)
 {
 	philo_take_forks(data, philo);
+	if (data->nb_philo == 1)
+		return ;
 	philo_eat(data, philo);
 	philo_leave_forks(data, philo);
 }
